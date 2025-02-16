@@ -24,7 +24,7 @@ type TestList struct {
 }
 
 type TestSuite struct {
-  TestingFunction   func(in TestList) string
+  TestingFunction   func(t *testing.T, in TestList) string
   Tests             []TestList
 }
 
@@ -41,7 +41,7 @@ func TestAll(t *testing.T) {
       name := test.TestName
       t.Run(name, func(t *testing.T) {
         exp := test.ExpectedValue
-        got := suite.TestingFunction(test)
+        got := suite.TestingFunction(t, test)
         if exp != got {
           if test.IsMulti {
             t.Errorf("In '%s':\n", name)
